@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+  :root {
+    --font-family-main: "PT Sans", sans-serif;
+    --font-size-xs: 14px;
+    --font-line-xs: 18px;
+    --font-xs: var(--font-size-xs) / var(--font-line-xs) var(--font-family-main);
+    --font-size-s: 16px;
+    --font-line-s: 19px;
+    --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
+    --font-size-m: 20px;
+    --font-line-m: 30px;
+    --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+    --font-size-l: 25px;
+    --font-line-l: 30px;
+    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+    --font-size-xl: 56px;
+    --font-line-xl: 67px;
+    --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+    --font-size-xxl: 200px;
+    --font-line-xxl: 160px;
+    --font-xxl: var(--font-size-xxl) / var(--font-line-xxl) var(--font-family-main);
+  }
+
+ 
