@@ -1,0 +1,42 @@
+.checkbox {
+  position: absolute;
+  appearance: none;
+}
+
+.checkboxLabel {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+
+  &.checked {
+    color: var(--color-gray);
+    text-decoration: line-through;
+  }
+}
+
+.checkboxView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.checkboxIcon {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.checkbox:checked + .checkboxView {
+  background-color: green;
+}
+
+.checkbox:checked + .checkboxView .checkboxIcon {
+  opacity: 1;
+}
