@@ -1,39 +1,53 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import cn from 'clsx';
+import cn from 'clsx';
 
 import { getTodos } from './model/selectors/getTodos';
-import { getActiveTodos } from './model/selectors/getActiveTodos';
-import { getCompletedTodos } from './model/selectors/getCompletedTodos';
 import { todosActions } from './model/slice/TodosSlice';
 import { AddTodoForm } from './items/AddTodoForm/AddTodoForm';
-import styles from './TodoList.module.scss';
 import { TodoItem } from './items/TodoItem/TodoItem';
+import styles from './TodoList.module.scss';
+
+import type { MouseEvent } from 'react'
 
 
-enum Filters {
-  ALL = 'All',
-  ACTIVE = 'Active',
-  COMPLETED = 'Completed',
+type FilterValue = 'ALL' | 'ACTIVE' | 'COMPLETED'
+
+interface Filter {
+  label: string
+  value: FilterValue
 }
 
+const filters: Filter[] = [
+  { label: 'All', value: 'ALL' },
+  { label: 'Active', value: 'ACTIVE' },
+  { label: 'Completed', value: 'COMPLETED' },
+];
+
 export const TodoList = () => {
-  const [ filter, setFilter ] = useState(Filters.ALL);
+  const [ currentFilter, setCurrentFilter ] = useState<FilterValue>(filters[0].value);
   const dispatch = useDispatch()
   const allTodos = useSelector(getTodos)
-  const activeTodos = useSelector(getActiveTodos)
-  const completedTodos = useSelector(getCompletedTodos)
+
+  const activeTodos = useMemo(() => {
+    return allTodos.filter(todo => !todo.isCompleted)
+  }, [allTodos])
 
   const todos = useMemo(() => {
-    switch (filter) {
-    case Filters.ACTIVE:
+    switch (currentFilter) {
+    case 'ACTIVE':
       return activeTodos
-    case Filters.COMPLETED:
-      return completedTodos
+    case 'COMPLETED':
+      return allTodos.filter(todo => todo.isCompleted)
     default:
       return allTodos
     }
-  }, [filter, activeTodos, completedTodos, allTodos])
+  }, [currentFilter, activeTodos, allTodos])
+
+  const handleSwitchFilter = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const filter = e.currentTarget.dataset.filter;
+    setCurrentFilter(filter as FilterValue)
+  }, [])
 
 
   return (
@@ -47,11 +61,23 @@ export const TodoList = () => {
       <div className={styles.footer}>
         <span>{activeTodos.length} items left</span>
         <div className={styles.filters}>
-          <button className={styles.btn} onClick={() => setFilter(Filters.ALL)}>{Filters.ALL}</button>
-          <button className={styles.btn} onClick={() => setFilter(Filters.ACTIVE)}>{Filters.ACTIVE}</button>
-          <button className={styles.btn} onClick={() => setFilter(Filters.COMPLETED)}>{Filters.COMPLETED}</button>
+          {filters.map(filter => (
+            <button 
+              key={filter.value}
+              className={cn(styles.btn, { [styles.active]: filter.value === currentFilter })} 
+              data-filter={filter.value}
+              onClick={handleSwitchFilter}
+            >
+              {filter.label}
+            </button>
+          ))}
         </div>
-        <button className={styles.btn} onClick={() => dispatch(todosActions.clearCompleted())}>Clear completed</button>
+        <button 
+          className={styles.btn} 
+          onClick={() => dispatch(todosActions.clearCompleted())}
+        >
+          Clear completed
+        </button>
       </div>
     </div>
   );
