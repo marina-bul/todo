@@ -13,11 +13,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...r
 
   return (
     <input 
-      ref={ref}
       className={cn(styles.input, className)}
       type="text" 
       placeholder='What needs to be done?'
+      data-testid='input'
       {...restProps}
+      ref={ref}
     />
   );
 });

@@ -14,15 +14,16 @@ export const AddTodoForm = () => {
   const handleAddTodo = useCallback((e: FormEvent) => { 
     e.preventDefault()
     const value = inputRef.current?.value || ''
-    if(inputRef.current) {
+    
+    if(inputRef.current && inputRef.current.value.length > 0) {
       dispatch(todosActions.addTodo(value))
       inputRef.current.value = ''
     }
     
-  }, [inputRef, dispatch])
+  }, [dispatch])
 
   return (
-    <form onSubmit={handleAddTodo}>
+    <form data-testid='form' onSubmit={handleAddTodo}>
       <Input ref={inputRef} />
     </form>
   );

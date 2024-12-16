@@ -9,6 +9,16 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     use: ['@svgr/webpack'],
   };
 
+  const babelLoader = {
+    test: /\.(js|jsx|tsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env']
+      }
+    }
+  }
 
   const cssLoader = {
     test: /\.(sa|sc|c)ss$/,
@@ -34,5 +44,5 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     use: 'ts-loader',
     exclude: /node_modules/,
   };
-  return [svgLoader, typescriptLoader, cssLoader];
+  return [svgLoader, babelLoader, typescriptLoader, cssLoader];
 }

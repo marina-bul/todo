@@ -27,7 +27,7 @@ export const TodoItem:FC<TodoItemProps> = ({ className, todo }) => {
   }, [todo, dispatch])
 
   return (
-    <li className={cn([styles.todoItem, className])}>
+    <li className={cn([styles.todoItem, className])} data-testid='todoItem'>
       <InputCheckbox 
         checkboxId={`checkbox${todo.id}`} 
         label={todo.text} 
