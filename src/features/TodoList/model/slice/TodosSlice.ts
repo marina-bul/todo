@@ -27,7 +27,7 @@ const todosSlice = createSlice({
     addTodo: (state, action) => {
       const todoText = action.payload;
       const newTodo: Todo = {
-        id: state.todos[state.todos.length - 1].id + 1,
+        id: state.todos[state.todos.length - 1]?.id + 1 || 1,
         text: todoText,
         isCompleted: false
       }
