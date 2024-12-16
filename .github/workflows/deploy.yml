@@ -23,7 +23,7 @@ jobs:
 
     - name: Set up Git user
       run: |
-        git config --global user.name "Marina Bulanova"
+        git config --global user.name "marina-bul"
         git config --global user.email "bragina_marina@mail.ru"
 
     - name: Build the project
