@@ -24,5 +24,10 @@ jobs:
     - name: Build the project
       run: npm run build:prod
 
+    - name: Set up Git user
+      run: 
+        git config --global user.name "Marina Bulanova"
+        git config --global user.email "bragina_marina@mail.ru"
+
     - name: Deploy to GitHub Pages
       run: npm run deploy
